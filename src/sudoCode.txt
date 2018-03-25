@@ -1,0 +1,143 @@
+
+CASE 1
+
+    Files list:
+
+        name:a.mp4
+        size:300
+        path:videos/a.mp4
+
+    Vdo list:
+
+        name:a.mp4
+        size:300
+        path:videos/a.mp4
+
+    Result:
+
+        same name
+        same size
+        same path
+
+        nothing changed: update blob url
+
+CASE 2
+
+    Files list:
+
+        name:a.mp4
+        size:300
+        path:old-videos/a.mp4
+
+    Vdo list:
+
+        name:a.mp4
+        size:300
+        path:new-videos/a.mp4
+
+    Result:
+
+        same name
+        same size
+        diff path
+
+        path changed: update path, blob url
+
+CASE 3
+
+    Files list:
+
+        name:a.mp4
+        size:300
+        path:videos/a.mp4
+
+    Vdo list:
+
+        name:b.mp4
+        size:300
+        path:videos/b.mp4
+
+    Result:
+
+        diff name
+        same size
+        same path (if substracted name)
+
+        name changed: update name, path, blob url
+
+CASE 4
+
+    Files list:
+
+        name:a.mp4
+        size:300
+        path:old-videos/a.mp4
+
+    Vdo list:
+
+        name:b.mp4
+        size:300
+        path:new-videos/b.mp4
+
+    Result:
+
+        diff name
+        same size
+        diff path
+
+        name & path changed: update name, path, blob url
+        take list of unmatched in vdo list and try to match using size
+
+CASE 5
+
+    Files list:
+
+        name:a.mp4
+        size:300
+        path:videos/a.mp4
+
+        name:b.mp4
+        size:500
+        path:videos/b.mp4
+
+    Vdo list:
+
+        name:a.mp4
+        size:300
+        path:videos/a.mp4
+
+    Result:
+
+        no name
+        no size
+        no path
+
+        new vdo: create new vdo
+        make sure list of current vdos is all acounted for before adding new
+
+CASE 6
+
+    Files list:
+
+        name:a.mp4
+        size:300
+        path:videos/a.mp4
+
+    Vdo list:
+
+        name:a.mp4
+        size:300
+        path:videos/a.mp4
+
+        name:b.mp4
+        size:500
+        path:videos/b.mp4
+
+    Result:
+
+        no name
+        no size
+        no path
+
+        deleted file: delete vdo
+
