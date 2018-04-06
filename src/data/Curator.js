@@ -12,7 +12,7 @@ var doneVdos = [];
 var doneFiles = [];
 
 function Curator(inputFiles, inputVdos, logSummary, logOperations){
-
+    
     restFiles = inputFiles;
     restVdos = inputVdos;
 

@@ -1,8 +1,36 @@
+import StorageManager from "./data/StorageManager";
+import Database from "./data/Database";
 import FilePolice from "./data/FilePolice";
 import Curator from "./data/Curator";
-import FakeFiles from "./data/FakeFiles";
-import FakeVdos from "./data/FakeVdos";
+// import FakeFiles from "./data/FakeFiles";
+// import FakeVdos from "./data/FakeVdos";
 import FormatBytes from "./tools/FormatBytes";
+import LOG from "./logger/LOG";
+
+LOG.storage = true;
+
+// Step 1: Load VDO data from local storage. If it fails, load it from saved file.
+// StorageManager.load("VideoLocalStorage", 
+StorageManager.load("NewStorage", 
+                    "/_staticDataEntryPoints/emptyFile.json", 
+                    // "/_staticDataEntryPoints/videoObjectsBackupFile.json", 
+                    onStorageManagerLoad);
+
+// Step 2: When data(JSON) is loaded, build Database using it
+function onStorageManagerLoad(storedData){
+    Database.build(storedData);
+    console.log( Database.getAll() );
+}
+
+// FEATURE: This method saves the application database (Vdos) to local storage
+function saveVdoData(){
+    StorageManager.save( Database.getAll() );
+}
+
+// FEATURE: This method outputs the local storage data as a url to the console. Clicking it opens a JSON page that can be saved as the JSON file used for StorageManager.load
+function exportVdoData(){
+    StorageManager.export();
+}
 
 document.getElementById("filepicker").addEventListener("change", function(event) {
     FilePolice(event.target.files, filePoliceDone);
@@ -25,8 +53,8 @@ function filePoliceDone(veredict){
     console.log("DUPLICATES:", veredict.duplicates);
     console.log("OTHER:", veredict.other);
 
-    Curator(FakeFiles, FakeVdos, true, true);
-    // Curator(veredict.legit, [], true, true);
+    // Curator(FakeFiles, FakeVdos, true, true);
+    Curator(veredict.legit, Database.getAll(), true, true);
     // printLegitFiles(veredict.legit);
 }
 

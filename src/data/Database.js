@@ -1,4 +1,5 @@
-//this stores and manipulates video objects
+import LOG from "../logger/LOG";
+import MSG from "../logger/MSG";
 
 var Database = {
 	_db:null,
@@ -36,4 +37,4 @@ Database.get = function(id){
 	return Database._hash[id];
 };
 
-module.exports = Database;
+export default Database;
