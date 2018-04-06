@@ -1,6 +1,8 @@
 import VdoFactory from "./VdoFactory";
 import Comparator from "./Comparator";
 import FormatBytes from "../tools/FormatBytes";
+import LOG from "../logger/LOG";
+import MSG from "../logger/MSG";
 
 var LOG_SUMMARY;
 var LOG_OPERATIONS;
@@ -18,8 +20,8 @@ function Curator(inputFiles, inputVdos, callback){
     restFiles = inputFiles;
     restVdos = inputVdos;
 
-    LOG_SUMMARY = false;
-    LOG_OPERATIONS = false;
+    LOG_SUMMARY = true;
+    LOG_OPERATIONS = true;
 
     addNew();
     curate(onMarkToRemove, markOldVdo, "[ MARKED TO REMOVE ] (vdo.noFile === true)");
@@ -33,6 +35,16 @@ function Curator(inputFiles, inputVdos, callback){
 
     Curator.DATA = doneVdos;
     callback();
+
+    // "[CURATOR] All files processed. Total count:"
+    // LOG(MSG.CURATOR_DONE, doneFiles.length);
+
+    // "[CURATOR] Existing VDOs count:"
+    // LOG(MSG.CURATOR_EXISTING_COUNT, doneFiles.length);
+
+    // "[CURATOR] VDOs marked to remove count:"
+    // LOG(MSG.CURATOR_REMOVE_COUNT, (doneVdos.length - doneFiles.length));
+    
 
     if(LOG_SUMMARY){
         console.log("\n**********", doneFiles.length ,"FILES PROCESSED **********");

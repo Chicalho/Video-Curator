@@ -1,0 +1,29 @@
+These 2 folders "original" and "substitute" are used to test Curator.js (and FilePolice.js, for duplicates)
+
+
+*************** TO CREATE BASE VDO's:
+
+duplicate "original" folder and rename it to "test"
+
+open browser and run app 
+
+clear local storage
+
+use filepicker in app to target "test"
+
+this creates a brand new list of VDOs
+
+use save button in app, it will add "test" file tree to local storage
+
+
+*************** TO TEST UPDATE ROUTINE:
+
+delete "test" folder
+
+duplicate "substitute" folder and rename it to "test"
+
+use filepicker in app to target "test"
+
+this will update the previous list VDOs with the new file tree
+
+(This should perform all Curator options, except the unresolved routine because FilePolice sees unresolved as duplicates beforehand)
