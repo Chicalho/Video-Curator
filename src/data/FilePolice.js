@@ -1,3 +1,6 @@
+import LOG from "../logger/LOG";
+import MSG from "../logger/MSG";
+
 var legitVideosFiles = [];
 var emptyVideosFiles = [];
 var duplicateVideosFiles = [];
@@ -75,15 +78,35 @@ function FilePolice(files, callback){
         }
     };
 
-    callback({
-        legit:          legitVideosFiles,
+    var veredict = {
+        mp4:            legitVideosFiles,
         isLegit:        (emptyVideosFiles.length === 0 && duplicateVideosFiles.length === 0),
         empty:          emptyVideosFiles,
         hasEmpty:       (emptyVideosFiles.length > 0),
         duplicates:     duplicateVideosFiles,
         hasDuplicates:  (duplicateVideosFiles.length > 0),
         other:          otherFiles
-    });
+    };
+
+    if(veredict.mp4.length > 0){
+        LOG(MSG.FILEPOLICE_HAS_MP4_FILES, veredict.mp4);
+    }
+
+    if(veredict.isLegit){
+        LOG(MSG.FILEPOLICE_IS_LEGIT);
+    }else{
+        LOG(MSG.FILEPOLICE_NOT_LEGIT);
+        if(veredict.hasEmpty){
+            LOG(MSG.FILEPOLICE_HAS_EMPTY_FILES, veredict.empty);
+        }
+        if(veredict.hasDuplicates){
+            LOG(MSG.FILEPOLICE_HAS_DUPLICATE_FILES, veredict.duplicates);
+        }
+    }
+
+    LOG(MSG.FILEPOLICE_OTHER_FILES, veredict.other);
+
+    callback(veredict);
 }
 
 export default FilePolice;

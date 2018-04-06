@@ -1,4 +1,5 @@
 LOG.storage = false;
+LOG.filePolice = false;
 
 function LOG(message, optionalObject){
     if( LOG[message.type] && optionalObject){

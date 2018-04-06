@@ -11,13 +11,15 @@ var restVdos;
 var doneVdos = [];
 var doneFiles = [];
 
-function Curator(inputFiles, inputVdos, logSummary, logOperations){
+Curator.DATA = null;
+
+function Curator(inputFiles, inputVdos, callback){
     
     restFiles = inputFiles;
     restVdos = inputVdos;
 
-    LOG_SUMMARY = logSummary;
-    LOG_OPERATIONS = logOperations;
+    LOG_SUMMARY = false;
+    LOG_OPERATIONS = false;
 
     addNew();
     curate(onMarkToRemove, markOldVdo, "[ MARKED TO REMOVE ] (vdo.noFile === true)");
@@ -28,6 +30,9 @@ function Curator(inputFiles, inputVdos, logSummary, logOperations){
     identifyAmbiguities();
     curate(onUpdateNameAndPath, updateVdoNameAndPath, "[ UPDATE NAME & PATH ]");
     curate(onAddPossibleMatches, addPossibleMatches, "[ CONFLICT ] (vdo.conflict for more info)");
+
+    Curator.DATA = doneVdos;
+    callback();
 
     if(LOG_SUMMARY){
         console.log("\n**********", doneFiles.length ,"FILES PROCESSED **********");

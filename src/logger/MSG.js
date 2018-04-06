@@ -42,4 +42,40 @@ MSG.STORAGE_EXPORT = {
     content:"Exporting database to data url below:"
 };
 
+// Called when filePolice is legit
+MSG.FILEPOLICE_IS_LEGIT = {
+    type:"filePolice",
+    content:"File Police Test: LEGIT (No duplicates or empty files found)"
+};
+
+// Called when filePolice is not legit
+MSG.FILEPOLICE_NOT_LEGIT = {
+    type:"filePolice",
+    content:"File Police Test:NOT LEGIT (Found duplicate or empty files)"
+};
+
+// Called when filePolice identifies .mp4 files
+MSG.FILEPOLICE_HAS_MP4_FILES = {
+    type:"filePolice",
+    content:"File Police found some .mp4 files. Will use them in application."
+};
+
+// Called when filePolice identifies empty files
+MSG.FILEPOLICE_HAS_EMPTY_FILES = {
+    type:"filePolice",
+    content:"File Police found some emty files. Delete them in the OS."
+};
+
+// Called when filePolice identifies duplicate files
+MSG.FILEPOLICE_HAS_DUPLICATE_FILES = {
+    type:"filePolice",
+    content:"File Police found some duplicate files. Delete one of the copies in the OS."
+};
+
+// Called when filePolice identifies ther file types
+MSG.FILEPOLICE_OTHER_FILES = {
+    type:"filePolice",
+    content:"These are the remaining file types. Be sure to convert the video formats to .mp4."
+};
+
 export default MSG;

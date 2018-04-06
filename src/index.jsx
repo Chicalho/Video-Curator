@@ -7,61 +7,53 @@ import Curator from "./data/Curator";
 import FormatBytes from "./tools/FormatBytes";
 import LOG from "./logger/LOG";
 
-LOG.storage = true;
+LOG.storage = false;
+LOG.filePolice = true;
 
 // Step 1: Load VDO data from local storage. If it fails, load it from saved file.
-// StorageManager.load("VideoLocalStorage", 
-StorageManager.load("NewStorage", 
-                    "/_staticDataEntryPoints/emptyFile.json", 
-                    // "/_staticDataEntryPoints/videoObjectsBackupFile.json", 
-                    onStorageManagerLoad);
+StorageManager.load("VideoLocalStorage", "/_staticDataEntryPoints/emptyFile.json", onStorageManagerLoad);
 
-// Step 2: When data(JSON) is loaded, build Database using it
-function onStorageManagerLoad(storedData){
-    Database.build(storedData);
-    console.log( Database.getAll() );
+// Step 2: When StorageManager.DATA (JSON) is loaded, user interaction is allowed
+function onStorageManagerLoad(){
+    //unlock/render UI here
 }
 
-// FEATURE: This method saves the application database (Vdos) to local storage
-function saveVdoData(){
-    StorageManager.save( Database.getAll() );
-}
-
-// FEATURE: This method outputs the local storage data as a url to the console. Clicking it opens a JSON page that can be saved as the JSON file used for StorageManager.load
-function exportVdoData(){
-    StorageManager.export();
-}
-
+// Step 3: Enable file picker. After pick, files are sent to FilePolice that flags all files in directory
 document.getElementById("filepicker").addEventListener("change", function(event) {
     FilePolice(event.target.files, filePoliceDone);
 }, false);
 
+// Step 4: Non .mp4 are sent to filePoliceLog to handle later. Mp4 files are matched to Vdos from storage by Curator
 function filePoliceDone(veredict){
-    if(veredict.isLegit){
-        console.log("Continue, its legit");
-    }else{
-        console.log("NOT legit");
-        if(veredict.hasEmpty){
-            console.log("Has empty files");
-        }
-        if(veredict.hasDuplicates){
-            console.log("Has duplicate files");
-        }
-    }
-    console.log("LEGIT:", veredict.legit);
-    console.log("EMPTY:", veredict.empty);
-    console.log("DUPLICATES:", veredict.duplicates);
-    console.log("OTHER:", veredict.other);
-
-    // Curator(FakeFiles, FakeVdos, true, true);
-    Curator(veredict.legit, Database.getAll(), true, true);
-    // printLegitFiles(veredict.legit);
+    // Curator(FakeFiles, FakeVdos);
+    Curator(veredict.mp4, StorageManager.DATA, curatorDone);
 }
 
+// Step 5: Application database is built using output from Curator
 function curatorDone(){
-
+    Database.build(Curator.DATA);
+    startApp();
 }
 
+// Step 6: Start Application
+function startApp(){
+    // Code here
+}
+
+// FEATURE: This method saves the application database (Vdos) to local storage
+document.getElementById("saveButton").addEventListener("click", function(event) {
+    StorageManager.save( Database.getAll() );
+}, false);
+
+// FEATURE: This method outputs the local storage data as a url to the console. Clicking it opens a JSON page that can be saved as the JSON file used for StorageManager.load
+document.getElementById("exportButton").addEventListener("click", function(event) {
+    StorageManager.export();
+}, false);
+
+
+
+
+/*
 function printLegitFiles(files){
 
     let output = document.getElementById("listing");
@@ -81,25 +73,4 @@ function printLegitFiles(files){
     // video.controls = true;
     // document.body.appendChild(video);
 }
-  
-
-// import Directory from "./data/Directory";
-// import StorageManager from "./data/StorageManager";
-// import VideoUpdater from "./data/VideoUpdater";
-
-// Directory.load("/_staticDataEntryPoints/dir_mp4_output.txt", "Z:\\System\\", onDirectoryLoad);
-
-// function onDirectoryLoad(){
-// 	console.log("\n");
-// 	StorageManager.load("/_staticDataEntryPoints/videoObjectsBackupFile.json", "VideoLocalStorage", onStorageManagerLoad);
-// }
-
-// function onStorageManagerLoad(){
-// 	console.log("\n");
-// 	VideoUpdater.run(Directory.list, onDatabaseReady);
-// }
-
-// function onDatabaseReady(){
-// 	console.log("database ready.");
-// 	StorageManager.save();
-// }
+*/

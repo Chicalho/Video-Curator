@@ -3,6 +3,8 @@ import MSG from "../logger/MSG";
 
 var StorageManager = {};
 
+StorageManager.DATA = null;
+
 StorageManager.load = function(storageID, file, callback){
 	StorageManager.file = file;
 	StorageManager.storageID = storageID;
@@ -46,7 +48,8 @@ StorageManager.onResponse = function(){
 
 StorageManager.buildData = function(data){
 	LOG(MSG.STORAGE_DONE);
-	StorageManager.callback(JSON.parse(data));
+	StorageManager.DATA = JSON.parse(data);
+	StorageManager.callback();
 }
 
 StorageManager.save = function(database){
