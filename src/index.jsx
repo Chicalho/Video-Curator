@@ -1,17 +1,21 @@
 import StorageManager from "./data/StorageManager";
-import Database from "./data/Database";
 import FilePolice from "./data/FilePolice";
 import Curator from "./data/Curator";
-// import FakeFiles from "./data/FakeFiles";
-// import FakeVdos from "./data/FakeVdos";
-import FormatBytes from "./tools/FormatBytes";
+import Database from "./data/Database";
 import LOG from "./logger/LOG";
 
-LOG.storage = false;
+/**********************************************************
+TOGGLE LOG FUNCTIONS
+**********************************************************/
+LOG.storage = true;
 LOG.filePolice = true;
 
+/**********************************************************
+APPLICATION INIT
+**********************************************************/
+
 // Step 1: Load VDO data from local storage. If it fails, load it from saved file.
-StorageManager.load("VideoLocalStorage", "/_staticDataEntryPoints/emptyFile.json", onStorageManagerLoad);
+StorageManager.load("VideoLocalStorage", "/backup/vdos.json", onStorageManagerLoad);
 
 // Step 2: When StorageManager.DATA (JSON) is loaded, user interaction is allowed
 function onStorageManagerLoad(){
@@ -25,7 +29,6 @@ document.getElementById("filepicker").addEventListener("change", function(event)
 
 // Step 4: Non .mp4 are sent to filePoliceLog to handle later. Mp4 files are matched to Vdos from storage by Curator
 function filePoliceDone(veredict){
-    // Curator(FakeFiles, FakeVdos);
     Curator(veredict.mp4, StorageManager.DATA, curatorDone);
 }
 
@@ -39,6 +42,10 @@ function curatorDone(){
 function startApp(){
     // Code here
 }
+
+/**********************************************************
+SAVE & EXPORT FUNCTIONS
+**********************************************************/
 
 // FEATURE: This method saves the application database (Vdos) to local storage
 document.getElementById("saveButton").addEventListener("click", function(event) {
