@@ -1,5 +1,9 @@
 var MSG = {};
 
+/**********************************************************
+STORAGE MANAGER
+**********************************************************/
+
 // Called just before testing if local storage contains Vdos
 MSG.STORAGE_TEST = {
     type:"storage",
@@ -42,6 +46,10 @@ MSG.STORAGE_EXPORT = {
     content:"[STORAGE_MANAGER] Exporting database to data url below:"
 };
 
+/**********************************************************
+FILE POLICE
+**********************************************************/
+
 // Called when filePolice is legit
 MSG.FILEPOLICE_IS_LEGIT = {
     type:"filePolice",
@@ -76,6 +84,62 @@ MSG.FILEPOLICE_HAS_DUPLICATE_FILES = {
 MSG.FILEPOLICE_OTHER_FILES = {
     type:"filePolice",
     content:"[FILE_POLICE] These are the remaining file types. Be sure to convert the video formats to .mp4."
+};
+
+/**********************************************************
+CURATOR
+**********************************************************/
+
+// Counts total number of file curated
+MSG.CURATOR_DONE = {
+    type:"curatorSummary",
+    content:"[CURATOR_SUMMARY] All files processed. Total count:"
+};
+
+// Counts number of videos before curation
+MSG.CURATOR_EXISTING_COUNT = {
+    type:"curatorSummary",
+    content:"[CURATOR_SUMMARY] Existing VDOs count:"
+};
+
+// Counts number of videos marked to be removed
+MSG.CURATOR_REMOVE_COUNT = {
+    type:"curatorSummary",
+    content:"[CURATOR_SUMMARY] VDOs marked to remove count:"
+};
+
+// Outputs any unprocessed vdos after curation
+MSG.CURATOR_UNPROCESSED_VDOS = {
+    type:"curatorSummary",
+    content:"[CURATOR_SUMMARY] Unprocessed VDOs:"
+};
+
+// Outputs any unprocessed files after curation
+MSG.CURATOR_UNPROCESSED_FILES = {
+    type:"curatorSummary",
+    content:"[CURATOR_SUMMARY] All files processed. Total count:"
+};
+
+/**********************************************************
+DATABASE
+**********************************************************/
+
+// Called when database is built by the first time
+MSG.DATABASE_BUILT = {
+    type:"database",
+    content:"[DATABASE] First database built."
+};
+
+// Called when the whole database is requested
+MSG.DATABASE_GET_ALL = {
+    type:"database",
+    content:"[DATABASE] Getting entire database:"
+};
+
+// Called when a specific item is requested from the database
+MSG.DATABASE_GET_BY_ID = {
+    type:"database",
+    content:"[DATABASE] Get VDO by id from database:"
 };
 
 export default MSG;

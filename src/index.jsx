@@ -7,8 +7,12 @@ import LOG from "./logger/LOG";
 /**********************************************************
 TOGGLE LOG FUNCTIONS
 **********************************************************/
+
 LOG.storage = true;
 LOG.filePolice = true;
+LOG.curatorSummary = true;
+LOG.curatorDetail = true;
+LOG.database = true;
 
 /**********************************************************
 APPLICATION INIT

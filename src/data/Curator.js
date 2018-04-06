@@ -4,9 +4,6 @@ import FormatBytes from "../tools/FormatBytes";
 import LOG from "../logger/LOG";
 import MSG from "../logger/MSG";
 
-var LOG_SUMMARY;
-var LOG_OPERATIONS;
-
 var restFiles;
 var restVdos;
 
@@ -20,9 +17,6 @@ function Curator(inputFiles, inputVdos, callback){
     restFiles = inputFiles;
     restVdos = inputVdos;
 
-    LOG_SUMMARY = true;
-    LOG_OPERATIONS = true;
-
     addNew();
     curate(onMarkToRemove, markOldVdo, "[ MARKED TO REMOVE ] (vdo.noFile === true)");
     curate(onUpdateUrl, updateVdoUrl, "[ NO CHANGE ]");
@@ -34,24 +28,14 @@ function Curator(inputFiles, inputVdos, callback){
     curate(onAddPossibleMatches, addPossibleMatches, "[ CONFLICT ] (vdo.conflict for more info)");
 
     Curator.DATA = doneVdos;
+
+    LOG(MSG.CURATOR_DONE, doneFiles.length);
+    LOG(MSG.CURATOR_EXISTING_COUNT, doneFiles.length);
+    LOG(MSG.CURATOR_REMOVE_COUNT, (doneVdos.length - doneFiles.length));
+    LOG(MSG.CURATOR_UNPROCESSED_VDOS, restVdos);
+    LOG(MSG.CURATOR_UNPROCESSED_FILES, restFiles);
+
     callback();
-
-    // "[CURATOR] All files processed. Total count:"
-    // LOG(MSG.CURATOR_DONE, doneFiles.length);
-
-    // "[CURATOR] Existing VDOs count:"
-    // LOG(MSG.CURATOR_EXISTING_COUNT, doneFiles.length);
-
-    // "[CURATOR] VDOs marked to remove count:"
-    // LOG(MSG.CURATOR_REMOVE_COUNT, (doneVdos.length - doneFiles.length));
-    
-
-    if(LOG_SUMMARY){
-        console.log("\n**********", doneFiles.length ,"FILES PROCESSED **********");
-        console.log("\n", doneVdos.length, "EXISTING VDOS (", (doneVdos.length - doneFiles.length), "MARKED TO REMOVE )\n", doneVdos);
-        console.log("\nUNPROCESSED VDOS:", restVdos);
-        console.log("UNPROCESSED FILES:", restFiles);
-    }
 }
 
 /*---------------------------------------------------------------------
@@ -247,11 +231,12 @@ function curate(matchFunction, successFunction, message){
 
 function log(vdo, payload, message){
 
-    if(!LOG_OPERATIONS){
+    if(!LOG.curatorDetail){
         return;
     }
 
     console.log("\n");
+    console.log("LOG: [CURATOR_DETAILS]");
     console.log(message);
 
     if(!vdo){ 

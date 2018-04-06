@@ -15,25 +15,18 @@ var Database = {
 };
 
 Database.build = function(videoDefinitionObjectList){
-	console.log("built database.");
+	LOG(MSG.DATABASE_BUILT);
 	Database._db = videoDefinitionObjectList;
 	Database._updateHash(videoDefinitionObjectList);
 };
 
-Database.add = function(videoDefinitionObjectList){
-	console.log("added", videoDefinitionObjectList.length, "new videoDefinitionObjectList to database.");
-	//add videoDefinitionObjectList array to Database._db
-	Database._db = Database._db.concat(videoDefinitionObjectList);
-	Database._updateHash(videoDefinitionObjectList);
-};
-
 Database.getAll = function(){
-	console.log("getting entire database.");
+	LOG(MSG.DATABASE_GET_ALL);
 	return Database._db;
 };
 
 Database.get = function(id){
-	console.log("getting video with id", id);
+	LOG(MSG.DATABASE_GET_BY_ID, id);
 	return Database._hash[id];
 };
 
