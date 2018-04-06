@@ -2,7 +2,8 @@ import VdoFactory from "./VdoFactory";
 import Comparator from "./Comparator";
 import FormatBytes from "../tools/FormatBytes";
 
-const LOG_OPERATIONS = false;
+var LOG_SUMMARY;
+var LOG_OPERATIONS;
 
 var restFiles;
 var restVdos;
@@ -10,10 +11,13 @@ var restVdos;
 var doneVdos = [];
 var doneFiles = [];
 
-function Curator(inputFiles, inputVdos){
+function Curator(inputFiles, inputVdos, logSummary, logOperations){
 
     restFiles = inputFiles;
     restVdos = inputVdos;
+
+    LOG_SUMMARY = logSummary;
+    LOG_OPERATIONS = logOperations;
 
     addNew();
     curate(onMarkToRemove, markOldVdo, "[ MARKED TO REMOVE ] (vdo.noFile === true)");
@@ -25,10 +29,12 @@ function Curator(inputFiles, inputVdos){
     curate(onUpdateNameAndPath, updateVdoNameAndPath, "[ UPDATE NAME & PATH ]");
     curate(onAddPossibleMatches, addPossibleMatches, "[ CONFLICT ] (vdo.conflict for more info)");
 
-    console.log("\n**********", doneFiles.length ,"FILES PROCESSED **********");
-    console.log("\n", doneVdos.length, "EXISTING VDOS (", (doneVdos.length-doneFiles.length), "MARKED TO REMOVE )\n", doneVdos);
-    console.log("\nUNPROCESSED VDOS:", restVdos);
-    console.log("UNPROCESSED FILES:", restFiles);
+    if(LOG_SUMMARY){
+        console.log("\n**********", doneFiles.length ,"FILES PROCESSED **********");
+        console.log("\n", doneVdos.length, "EXISTING VDOS (", (doneVdos.length - doneFiles.length), "MARKED TO REMOVE )\n", doneVdos);
+        console.log("\nUNPROCESSED VDOS:", restVdos);
+        console.log("UNPROCESSED FILES:", restFiles);
+    }
 }
 
 /*---------------------------------------------------------------------

@@ -25,9 +25,13 @@ function filePoliceDone(veredict){
     console.log("DUPLICATES:", veredict.duplicates);
     console.log("OTHER:", veredict.other);
 
-    // Curator(FakeFiles, FakeVdos);
-    Curator(veredict.legit, []);
+    Curator(FakeFiles, FakeVdos, true, true);
+    // Curator(veredict.legit, [], true, true);
     // printLegitFiles(veredict.legit);
+}
+
+function curatorDone(){
+
 }
 
 function printLegitFiles(files){
