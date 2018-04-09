@@ -4,7 +4,7 @@ import StorageManager from "./data/StorageManager";
 import FilePolice from "./data/FilePolice";
 import Curator from "./data/Curator";
 import Database from "./data/Database";
-import VideoAnalizer from "./tools/VideoAnalizer";
+// import VideoAnalizer from "./tools/VideoAnalizer";
 import LOG from "./logger/LOG";
 import ControllerView from "./components/ControllerView/ControllerView";
 
@@ -43,7 +43,10 @@ function filePoliceDone(veredict){
 // Step 5: Application database is built using output from Curator
 function curatorDone(){
     Database.build(Curator.DATA);
-    VideoAnalizer(Curator.DATA);
+
+    // Uncomment below to profile videos metadata
+    // VideoAnalizer(Curator.DATA);
+
     startApp();
 }
 
@@ -51,7 +54,7 @@ function curatorDone(){
 function startApp(){
     // Code here
     // StorageManager.save();
- 	ReactDOM.render(<ControllerView/>, document.getElementById('ControllerView'));
+ 	// ReactDOM.render(<ControllerView/>, document.getElementById('ControllerView'));
 }
 
 /**********************************************************
@@ -92,3 +95,36 @@ function printLegitFiles(files){
     // document.body.appendChild(video);
 }
 */
+
+// const captureFrame = require('capture-frame')
+
+// const video = document.createElement('video')
+// video.addEventListener('canplay', onCanPlay)
+// video.volume = 0
+
+// video.setAttribute('crossOrigin', 'anonymous') // optional, when cross-domain
+// video.src = `http://example.com/test.webm`
+// video.play()
+
+// function onCanPlay () {
+//   video.removeEventListener('canplay', onCanPlay)
+//   video.addEventListener('seeked', onSeeked)
+
+//   video.currentTime = 2 // seek 2 seconds into the video
+// }
+
+// function onSeeked () {
+//   video.removeEventListener('seeked', onSeeked)
+
+//   const buf = captureFrame(video)
+
+//   // unload video element, to prevent memory leaks
+//   video.pause()
+//   video.src = ''
+//   video.load()
+
+//   // show the captured image in the DOM
+//   const image = document.createElement('img')
+//   image.src = window.URL.createObjectURL(new window.Blob([buf]))
+//   document.body.appendChild(image)
+// }
