@@ -4,6 +4,7 @@ import StorageManager from "./data/StorageManager";
 import FilePolice from "./data/FilePolice";
 import Curator from "./data/Curator";
 import Database from "./data/Database";
+import VideoAnalizer from "./tools/VideoAnalizer";
 import LOG from "./logger/LOG";
 import ControllerView from "./components/ControllerView/ControllerView";
 
@@ -11,11 +12,11 @@ import ControllerView from "./components/ControllerView/ControllerView";
 TOGGLE LOG FUNCTIONS
 **********************************************************/
 
-LOG.storage = true;
-LOG.filePolice = true;
-LOG.curatorSummary = true;
-LOG.curatorDetail = true;
-LOG.database = true;
+// LOG.storage = true;
+// LOG.filePolice = true;
+// LOG.curatorSummary = true;
+// LOG.curatorDetail = true;
+// LOG.database = true;
 
 /**********************************************************
 APPLICATION INIT
@@ -42,6 +43,7 @@ function filePoliceDone(veredict){
 // Step 5: Application database is built using output from Curator
 function curatorDone(){
     Database.build(Curator.DATA);
+    VideoAnalizer(Curator.DATA);
     startApp();
 }
 
