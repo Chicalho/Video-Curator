@@ -13,7 +13,7 @@ class SingleThumbInspector extends React.Component{
 		return ( 	
 			<Form>
 				<Form.Field>
-					<Label size="mini"><Icon name='add to calendar'/>{selectedThumb.dateCreated}</Label>
+					<Label size="mini"><Icon name='add to calendar'/>{selectedThumb.dateCreated.toString()}</Label>
 				</Form.Field>
 				{/*<Form.Field>
 					<Label size="mini"><Icon name='id badge'/>{selectedThumb.id}</Label>

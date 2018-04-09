@@ -44,7 +44,7 @@ class VideoThumb extends React.Component{
 			<p><b>tags:</b>{outputTags}</p>
 			<p><b>watched:</b>{this.props.videoDefinitionObject.watched}</p>
 			<p><b>lastWatched:</b>{this.props.videoDefinitionObject.lastWatched}</p>
-			<p><b>dateCreated:</b>{this.props.videoDefinitionObject.dateCreated}</p>
+			<p><b>dateCreated:</b>{this.props.videoDefinitionObject.dateCreated.toString()}</p>
 			<p><b>rating:</b>{this.props.videoDefinitionObject.rating}</p>
 			<p><b>stills:</b>{this.props.videoDefinitionObject.stills}</p>
 			<p><b>noFile:</b>{this.props.videoDefinitionObject.noFile}</p>

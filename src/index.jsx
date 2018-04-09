@@ -54,7 +54,7 @@ function curatorDone(){
 function startApp(){
     // Code here
     // StorageManager.save();
- 	// ReactDOM.render(<ControllerView/>, document.getElementById('ControllerView'));
+ 	ReactDOM.render(<ControllerView/>, document.getElementById('ControllerView'));
 }
 
 /**********************************************************
