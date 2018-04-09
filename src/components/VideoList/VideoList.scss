@@ -1,0 +1,25 @@
+.VideoList{
+	padding: 24px;
+	margin: 0;
+	background-color: #767676;
+	grid-area: list;
+	height: 100vh;
+	overflow-y: scroll;
+	display: grid;
+}
+
+.VideoList.normal{
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 24px;
+  	grid-row-gap: 24px;
+}
+
+.VideoList.dense{
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 8px;
+  	grid-row-gap: 8px;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}

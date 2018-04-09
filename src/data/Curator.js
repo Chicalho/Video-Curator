@@ -77,8 +77,8 @@ function onUpdateUrl(vdo){
 }
 
 function updateVdoUrl(vdo, file){
-    // vdo.fileUrl =  URL.createObjectURL(file);
-    vdo.fileUrl = "Dummy URL Update!";
+    vdo.fileUrl =  URL.createObjectURL(file);
+    // vdo.fileUrl = "Dummy URL Update!";
 }
 
 /*---------------------------------------------------------------------

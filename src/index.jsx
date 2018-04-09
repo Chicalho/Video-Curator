@@ -1,8 +1,11 @@
+import React from "react";
+import ReactDOM from "react-dom";
 import StorageManager from "./data/StorageManager";
 import FilePolice from "./data/FilePolice";
 import Curator from "./data/Curator";
 import Database from "./data/Database";
 import LOG from "./logger/LOG";
+import ControllerView from "./components/ControllerView/ControllerView";
 
 /**********************************************************
 TOGGLE LOG FUNCTIONS
@@ -45,6 +48,8 @@ function curatorDone(){
 // Step 6: Start Application
 function startApp(){
     // Code here
+    // StorageManager.save();
+ 	ReactDOM.render(<ControllerView/>, document.getElementById('ControllerView'));
 }
 
 /**********************************************************

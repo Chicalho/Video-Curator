@@ -1,0 +1,25 @@
+.VideoThumb{
+	background-color: #EEE;
+	padding: 1em;
+	overflow: hidden;
+	height: 480px
+}
+
+.VideoThumb h1{
+	font-size: 12px;
+	margin: 0;
+}
+
+.VideoThumb p{
+	font-size: 10px;
+	line-height: 1em;
+}
+
+.VideoThumb b{
+	text-transform: uppercase;
+	padding-right: 0.5em;
+}
+
+.VideoThumb.selected{
+	background-color: #f0a1a1;
+}
