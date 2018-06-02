@@ -18,7 +18,7 @@ class RightSidebar extends React.Component{
 		var selectedThumbs = this.props.store.selectedThumbs;
 		
 		if(selectedThumbs.length == 0){
-			return <p>renderNoThumbSelected</p>
+			return <p>{this.props.store.vdoList.length}</p>
 		}else if(selectedThumbs.length == 1){
 			return <SingleThumbInspector store={this.props.store} />
 		}else{
